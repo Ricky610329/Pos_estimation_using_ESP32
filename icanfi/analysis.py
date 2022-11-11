@@ -40,3 +40,16 @@ def frame_distance(data):
             track[hold] +=1
     for k,v in track.items():
         print(k,':',v)
+
+def diversity_sub(data):
+    sub = {}
+    for i in range(SUBCARRIER):
+        sub[i] = []
+        for j in data[i]:
+            if j not in sub[i]:
+                sub[i].append(j)
+            else:
+                pass
+    for k,v in sub.items():
+        if len(v)<50:
+            print(k,",",end='')

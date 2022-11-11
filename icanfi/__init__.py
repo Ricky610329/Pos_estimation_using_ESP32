@@ -7,19 +7,20 @@ import icanfi.filters
 import icanfi.estimate
 
 #load
-dataset = icanfi.load.dataset
-load_r = icanfi.load.load_r
 
+load = icanfi.load.load
 
 #analysis
 analysis_time = icanfi.analysis.analysis_time
 analysis_sub = icanfi.analysis.analysis_sub
 frame_distance = icanfi.analysis.frame_distance
+diversity_sub = icanfi.analysis.diversity_sub
 
 #preprocess
 windwoing = icanfi.preprocess.windowing
 downsampling = icanfi.preprocess.downsampling
 remove_DC = icanfi.preprocess.remove_DC
+into_energy = icanfi.preprocess.into_energy
 
 
 #filters

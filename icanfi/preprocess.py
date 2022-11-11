@@ -1,7 +1,19 @@
 import numpy as np
 
-from icanfi.parameter import BIAS, DOWNSAMPLING_S, SUBCARRIER,WINDOWSIZE,HOP,DROP
+from icanfi.parameter import BIAS, DOWNSAMPLING_S, SUBCARRIER,WINDOWSIZE,HOP,DROP,NO_USE_SUB
 
+
+def into_energy(data):
+    output = {
+        'time' : data['time'],
+        0 : np.zeros(len(data['time']))
+    }
+    for sub in range(SUBCARRIER):
+        if sub not in NO_USE_SUB:
+            output[0] = output[0] + data[sub]
+
+    output[0] = output[0]/SUBCARRIER
+    return output
 
 
 def convert2np(data):
@@ -46,7 +58,6 @@ def windowing(data_raw,windowsize = WINDOWSIZE,hop = HOP,drop = DROP):
                 window.append(temp)
     return window
 
-            
             
 
         
