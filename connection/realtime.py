@@ -1,6 +1,5 @@
 import serial
 import numpy as np
-import icanfi
 import time
 
 

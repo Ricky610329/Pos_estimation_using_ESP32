@@ -21,7 +21,7 @@ windwoing = icanfi.preprocess.windowing
 downsampling = icanfi.preprocess.downsampling
 remove_DC = icanfi.preprocess.remove_DC
 into_energy = icanfi.preprocess.into_energy
-
+delta_R = icanfi.preprocess.delta_R
 
 #filters
 lowpass = icanfi.filters.lowpass

@@ -21,6 +21,15 @@ def convert2np(data):
         data[i] = np.array(data[i])
     data['time'] = np.array(data['time'])
 
+def delta_R(data_energy):
+    out = {
+        'time':[],
+        'r':[]
+    }
+    for i in range(1,len(data_energy['time'])):
+        out['time'].append(data_energy['time'][i])
+        out['r'].append(data_energy[0][i]-data_energy[0][i-1])
+    return out
 
 '''
 output:
