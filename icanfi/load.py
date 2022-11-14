@@ -15,6 +15,19 @@ def phase(x,y):
     return np.arctan(y/x)
 
 
+def load_s(filename,mod = 'a'):
+    if mod == 'a':
+        opperation = amplitude
+    else:
+        opperation = phase
+
+    with open(filename,newline="") as csvfile:
+        
+        rows = csv.DictReader(csvfile)
+
+        for row in rows:
+            print(row['time'], row['CSI'])
+
 def load(filename,mod = 'a'):
     if mod == 'a':
         opperation = amplitude
@@ -32,6 +45,7 @@ def load(filename,mod = 'a'):
         except IndexError:
             pass
     
+    file.close()
     TIME = np.array(TIME[1:])
     TIME = TIME.astype(np.float64)
 
@@ -65,3 +79,5 @@ def load(filename,mod = 'a'):
 
 
     return output
+
+

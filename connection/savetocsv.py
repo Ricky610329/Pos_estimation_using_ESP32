@@ -23,6 +23,7 @@ def read(ser):
         return line
     else:
         print('error')
+        return ' '
 
 def stack_full(ser):
     for i in range(1000):
@@ -34,6 +35,9 @@ def stack_full(ser):
             while j < 1000:
                 j+=1
                 dataraw = read(ser)
+                e = dataraw.find('[')
+                if e != -1:
+                    break
                 end = dataraw.find(']')
                 if end == -1:
                     s = s+dataraw
@@ -46,8 +50,6 @@ def stack_full(ser):
                 return s
         
 
-
-
 ser = serial.Serial(COM_PORT, BAUD_RATES)
 start = time.time()
 f_name = input("InputFileName:")
@@ -55,13 +57,14 @@ f_name = f_name + '.csv'
 
 with open(f_name, 'w', newline='') as csvfile:
     fieldnames = ['time','CSI']
+    #writer = csv.writer(csvfile)
     writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
     writer.writeheader()
     while True:
         try:
             s = stack_full(ser)
             s = {'time':time.time()-start,'CSI':s}
-            print(s)
+            print(s["time"],len(s['CSI'].split(" ")))
             writer.writerow(s)
         except KeyboardInterrupt:
             print("KeyboardInterrupt")

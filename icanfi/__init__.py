@@ -9,6 +9,7 @@ import icanfi.estimate
 #load
 
 load = icanfi.load.load
+load_s = icanfi.load.load_s
 
 #analysis
 analysis_time = icanfi.analysis.analysis_time
