@@ -1,4 +1,4 @@
 import icanfi
 
 
-icanfi.load_s('./1.csv')
+icanfi.new_load('./12.csv')

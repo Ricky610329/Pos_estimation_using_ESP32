@@ -3,7 +3,7 @@ import numpy as np
 import time
 
 
-COM_PORT = 'COM5'
+COM_PORT = '/dev/ttyUSB0'
 BAUD_RATES = 115200 
 
 
@@ -42,7 +42,6 @@ def stack_full(ser):
                     break
             return s
         
-
 
 
 

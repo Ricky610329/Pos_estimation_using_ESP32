@@ -3,7 +3,7 @@ import csv
 import time
 
 
-COM_PORT = 'COM5'
+COM_PORT = '/dev/ttyUSB0'
 BAUD_RATES = 115200 
 
 
@@ -32,11 +32,13 @@ def stack_full(ser):
         if start != -1:
             s = dataraw[start:]
             j = 0
+            flag = False
             while j < 1000:
                 j+=1
                 dataraw = read(ser)
                 e = dataraw.find('[')
                 if e != -1:
+                    flag = True
                     break
                 end = dataraw.find(']')
                 if end == -1:
@@ -44,29 +46,32 @@ def stack_full(ser):
                 else:
                     s = s+dataraw[:end+1]
                     break
-            if j == 1000:
+            if j == 1000 or flag:
                 return 0
             else:
                 return s
-        
 
-ser = serial.Serial(COM_PORT, BAUD_RATES)
-start = time.time()
-f_name = input("InputFileName:")
-f_name = f_name + '.csv'
 
-with open(f_name, 'w', newline='') as csvfile:
-    fieldnames = ['time','CSI']
-    #writer = csv.writer(csvfile)
-    writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-    writer.writeheader()
-    while True:
-        try:
-            s = stack_full(ser)
-            s = {'time':time.time()-start,'CSI':s}
-            print(s["time"],len(s['CSI'].split(" ")))
-            writer.writerow(s)
-        except KeyboardInterrupt:
-            print("KeyboardInterrupt")
-            break
-ser.close()
+class Serial_monitor_event:
+    def __init__(self):
+        self.Stop = False
+    def Serial_save(self,f_name,com = COM_PORT,baud = BAUD_RATES):
+        ser = serial.Serial(com, baud)
+        start = time.time()
+
+        with open(f_name, 'w', newline='') as csvfile:
+            fieldnames = ['time','CSI']
+            #writer = csv.writer(csvfile)
+            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+            writer.writeheader()
+            while True:
+                if not self.Stop:
+                    s = stack_full(ser)
+                    if s:
+                        s = {'time':time.time()-start,'CSI':s}
+                        print(s["time"],len(s['CSI'].split(" ")))
+                        writer.writerow(s)
+                else:
+                    print("KeyboardInterrupt")
+                    break
+        ser.close()

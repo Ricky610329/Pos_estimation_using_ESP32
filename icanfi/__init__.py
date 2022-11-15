@@ -5,11 +5,13 @@ import icanfi.analysis
 import icanfi.parameter
 import icanfi.filters
 import icanfi.estimate
+import icanfi.new_load
 
 #load
-
 load = icanfi.load.load
-load_s = icanfi.load.load_s
+
+#new_load
+new_load = icanfi.new_load.new_load
 
 #analysis
 analysis_time = icanfi.analysis.analysis_time
