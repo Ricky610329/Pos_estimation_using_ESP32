@@ -48,7 +48,7 @@ After load in the data set,  preprocess can help us to transfrom the dataset int
 |----|----|
 |**icanfi.into_energy(data)**|Transform data into energy of the signal in channel, please do this opperation in your **LAST** step of preprocessing, otherwise you might have trobule in doing further work.<br> **return dict(np.array())**  *#check source code or test.py to get better undestanding*|
 |**icanfi.delta_R(data_energy)**|compute the difference between frame, take input from into_energy.<br>**return dict(np.array)**|
-|**icanfi.windowing(data,windowsize = WINDOWSIZE,hop = HOP,drop = DROP)**|Do windowing operation.<br>**windowsize**: how many second can be contain in a window defult is 20 second<br>**hop**: the starting second from the last previous one defult is 3 second.<br>**drop**: if the gap between frame is larger them drop the window is discard<br>**return list(dict(np.array()))**|
+|**icanfi.windowing(data,windowsize = WINDOWSIZE,hop = HOP,drop = DROP)**|Do windowing operation.<br>**windowsize**: how many second can be contain in a window defult is 20 second<br>**hop**: the starting second from the previous one defult is 3 second.<br>**drop**: if the gap between frame is larger them drop the window is discard<br>**return list(dict(np.array()))**|
 |**icanfi.downsampling(data,Srate = DOWNSAMPLING_S,bias = BIAS,extand = False)**|downsapling will modify the original data,i.e. no need to assign another parameter<br>**Srate**: sample rate<br>**bias**: tolerance for data bias, the data have to be in range of second +/- bais.<br>**extend**: acceptance of extending the data if there is a miss<br><br>**interact with windowing can help you filter out those window that has large miss*|
 
 ### **filters.py**
