@@ -41,8 +41,8 @@ dic{
 
 '''
 #this is for csv file
-def windowing(data_raw,windowsize = WINDOWSIZE,hop = HOP,drop = DROP):
-    data = data_raw.data
+def windowing(data,windowsize = WINDOWSIZE,hop = HOP,drop = DROP):
+    data
     start = 0
     last_w = 0
     window = []
@@ -71,11 +71,7 @@ def windowing(data_raw,windowsize = WINDOWSIZE,hop = HOP,drop = DROP):
 
         
 
-def downsampling(data01,Srate = DOWNSAMPLING_S,bias = BIAS,extand = False):
-    if type(data01)!=dict:
-        data = data01.data
-    else:
-        data = data01
+def downsampling(data,Srate = DOWNSAMPLING_S,bias = BIAS,extand = False):
     track = {}
     second = 0
     index = 0

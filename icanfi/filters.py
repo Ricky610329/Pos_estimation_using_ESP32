@@ -23,7 +23,7 @@ def data_fft(data):
 
 
 #input the data that is needed to to transform
-def wavelet(data,selected,l = LEVEL,wave_f = WAVELET):
+def wavelet(data,l = LEVEL,wave_f = WAVELET):
     
     output = pywt.wavedec(data[0],wave_f,level=l)
     

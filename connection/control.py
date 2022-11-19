@@ -3,19 +3,9 @@ OSX/Linux: ifconfig
 Windows: ipconfig /all
 '''
 
-
 from socket import socket, gethostbyname, AF_INET, SOCK_DGRAM
 import sys
 import time
-
-#def listen():
-
-
-
-
-
-
-
 
 PORT_NUMBER = 5000
 RASP_port = 5001
@@ -41,7 +31,6 @@ for i in range(Ras_num):
 LSocket = socket( AF_INET, SOCK_DGRAM )
 LSocket.bind( (hostName, PORT_NUMBER) )
 LSocket.setblocking(False)
-print ("Test server listening on port {0}\n".format(PORT_NUMBER))
 data = 0
 addr = [' ',' ']
 check = False
