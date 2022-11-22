@@ -55,7 +55,7 @@ def stack_full(ser):
 class Serial_monitor_event:
     def __init__(self):
         self.Stop = False
-    def Serial_save(self,f_name,com = COM_PORT,baud = BAUD_RATES):
+    def Serial_save(self,f_name,index,com = COM_PORT,baud = BAUD_RATES):
         ser = serial.Serial(com, baud)
         start = time.time()
 
@@ -69,7 +69,7 @@ class Serial_monitor_event:
                     s = stack_full(ser)
                     if s:
                         s = {'time':time.time()-start,'CSI':s}
-                        print(s["time"],len(s['CSI'].split(" ")))
+                        print(index,s["time"],len(s['CSI'].split(" ")))
                         writer.writerow(s)
                 else:
                     print("KeyboardInterrupt")

@@ -1,7 +1,6 @@
 import serial
-import csv
 import time
-
+from socket import socket,gethostbyname, AF_INET, SOCK_DGRAM
 
 COM_PORT = '/dev/ttyUSB0'
 BAUD_RATES = 115200 
@@ -55,23 +54,18 @@ def stack_full(ser):
 class Serial_monitor_event:
     def __init__(self):
         self.Stop = False
-    def Serial_save(self,f_name,com = COM_PORT,baud = BAUD_RATES):
+    def Serial_save(self,f_name,index,sendIP,com = COM_PORT,baud = BAUD_RATES):
         ser = serial.Serial(com, baud)
         start = time.time()
-
-        with open(f_name, 'w', newline='') as csvfile:
-            fieldnames = ['time','CSI']
-            #writer = csv.writer(csvfile)
-            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-            writer.writeheader()
-            while True:
-                if not self.Stop:
-                    s = stack_full(ser)
-                    if s:
-                        s = {'time':time.time()-start,'CSI':s}
-                        print(s["time"],len(s['CSI'].split(" ")))
-                        writer.writerow(s)
-                else:
-                    print("KeyboardInterrupt")
-                    break
+        while True:
+            if not self.Stop:
+                s = stack_full(ser)
+                if s:
+                    s = {'time':time.time()-start,'CSI':s}
+                    s = str(index)+" "+str(s["time"])+" "+s['CSI']
+                    for j in range(4):
+                        sendIP.send(s.encode('utf-8'))
+            else:
+                print("KeyboardInterrupt")
+                break
         ser.close()
