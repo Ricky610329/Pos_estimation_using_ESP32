@@ -2,9 +2,6 @@ import icanfi
 import matplotlib.pyplot as plt
 
 
-data = icanfi.load('./dataset/block.csv')
+link = icanfi.multi_load('./dataset/nopeople.csv')
 
-data = icanfi.into_energy(data)
-data = icanfi.delta_R(data)
-plt.plot(data['time'],data['r'])
-plt.show()
+print(link[2].keys())

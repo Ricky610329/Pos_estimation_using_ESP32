@@ -3,10 +3,9 @@ OSX/Linux: ifconfig
 Windows: ipconfig /all
 '''
 
-from savetocsv import Serial_monitor_event as mevent
+from serialload import Serial_monitor_event as mevent
 import sys
 from socket import socket,gethostbyname, AF_INET, SOCK_DGRAM
-import time
 import threading
 
 

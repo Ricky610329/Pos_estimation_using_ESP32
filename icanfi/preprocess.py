@@ -10,7 +10,7 @@ def into_energy(data):
     }
     for sub in range(SUBCARRIER):
         if sub not in NO_USE_SUB:
-            output[0] = output[0] + data[sub]
+            output[0] = output[0] + np.square(data[sub])
 
     output[0] = output[0]/SUBCARRIER
     return output

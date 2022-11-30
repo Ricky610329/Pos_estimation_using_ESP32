@@ -4,7 +4,6 @@ This class is where to design the algorithm
 """
 
 
-import csv
 from socket import socket, gethostbyname, AF_INET, SOCK_DGRAM
 
 SIZE = 1024

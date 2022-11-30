@@ -3,7 +3,7 @@ OSX/Linux: ifconfig
 Windows: ipconfig /all
 '''
 
-from grapeverything import realtime_Data
+from graptocsi import realtime_Data
 from socket import socket, gethostbyname, AF_INET, SOCK_DGRAM
 import sys
 import time
@@ -18,8 +18,8 @@ Ras_num = 1
 SIZE = 1024
 hostName = gethostbyname( '0.0.0.0' )
 RASP_IP = [
+    '192.168.0.111',
     '192.168.0.112',
-    '127.0.0.1',
     '127.0.0.1',
     '127.0.0.1'
 ]
@@ -67,9 +67,12 @@ if check:
     print("\nInput file name, the system will save files on raspberry pi as csv file")
 
     filename = input("Input File name:\n>>")
+    grab_event.setfilename(filename)
+
     for i in range(100):
         for j in range(Ras_num):
-            SOCKETsned[j].send((filename+str(j+1)).encode('utf-8'))
+            link = "link"+(str(j+1))
+            SOCKETsned[j].send((link).encode('utf-8'))
     
     print("enter 'stop' to end data collection process")
     sig = ' '

@@ -1,14 +1,13 @@
 import icanfi.algorithm
-import icanfi.load
 import icanfi.preprocess
 import icanfi.analysis
 import icanfi.parameter
 import icanfi.filters
-import icanfi.estimate
 import icanfi.new_load
+import icanfi.multi_load
 
-#load
-load = icanfi.load.load
+#multi_load
+multi_load = icanfi.multi_load.multi_load
 
 #new_load
 new_load = icanfi.new_load.new_load
@@ -38,5 +37,3 @@ PCA_fast_slow = icanfi.algorithm.PCA_fast_slow
 do_PCA = icanfi.algorithm.do_PCA
 fast_slow_classify = icanfi.algorithm.fast_slow_classify
 
-#estimate
-estimate_fft = icanfi.estimate.estimate_fft

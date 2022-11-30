@@ -1,1 +1,15 @@
-print(len('CSI_DATA,STA,B8:D6:1A:81:A7:79,-48,11,1,6,1,1,1,1,0,0,0,-92,6,6,1,10903328,0,110,0,0,11.4016,384,[110 96 6 0 0 0 0 0 0 0 0 0 -20 -14 -19 -15 -19 -15 -19 -16 -18 -16 -18 -16 -17 -16 -16 -16 -16 -16 -16 -15 -16 -16 -15 -15 -15 -15 -15 -15 -15 -15 -14 -13 -14 -14 -13 -13 -14 -13 -13 -12 -13 -12 -13 -11 -13 -11 -13 -10 -13 -10 -13 -10 0 0 -13 -9 -13 -8 -13 -8 -13 -8 -13 -8 -13 -8 -13 -8 -13 -7 -13 -7 -13 -7 -14 -6 -14 -6 -14 -6 -14 -6 -13 -6 -14 -6 -13 -6 -13 -6 -13 -6 -13 -6 -13 -6 -13 -6 -13 -6 -13 -6 -13 -6 -13 -6 0 0 0 0 0 0 0 0 0 0 ],1668176272.982218'))
+import RTI
+import numpy as np
+import time
+#attenuation = RTI.RTI.tikhonov_regularized_least_squares_estimate(np.array([10, 10, 10, 10]),RTI.RTI.weight_matrix_generation( ))
+start = time.time()
+x= RTI.rti.weight_matrix_generation_v2()
+print(time.time()-start)
+co = RTI.rti.voxels_covariance_matrix_genertation()
+print(time.time()-start)
+attenuation = RTI.rti.minimum_mean_square_error_estimate(np.array([10, 400, 10, 400]),x,covariance_matrix = co)
+print(time.time()-start)
+RTI.rti.find_position(attenuation)
+print(time.time()-start)
+RTI.rti.show_heatmap(attenuation)
+print(time.time()-start)
