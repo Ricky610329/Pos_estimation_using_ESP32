@@ -6,18 +6,20 @@ This program is build for estimate Position using ESP32.
 -------------------
 Under module icanfi, it cantain the function to **load csv file** of capture CSI data, **preprocess** it and some **filter utility**.
 
-### **load.py and new_load.py**
+### **load.py, new_load.py and multi_load.py**
 
 To load csv file that is capture from ```idf monitor``` you can use ```icanfi.load``` to do the trick. If you use the utility provide in ```connection``` -> ```serial_load.py``` please rember to use ```icanfi.new_load``` to help you througt the work.
 
 |utility|description|
 |----|----|
 |**icanfi.load(filename,mod = 'a')**|use it to load ```idf monitor``` file ```mod``` stands for capture data type: 'a' amplitude, 'p' phase|
-|**icanfi.new_load(filename,mod = 'a')**|use it to load ```erial_load.py``` file ```mod``` stands for capture data type: 'a' amplitude, 'p' phase|
+|**icanfi.new_load(filename,mod = 'a')**|use it to load ```serial_load.py``` file ```mod``` stands for capture data type: 'a' amplitude, 'p' phase|
+|**icanfi.multi_load(filename,mod = 'a')**|use it to load the data that is collected from raspberry pi, it can help you organize links in order. ```mod``` stands for capture data type: 'a' amplitude, 'p' phase|
 
 After you load the csv file, the data will be store in format below:
 
 ```python
+#for load and new_load
 #dict(np.array)
 
 CSI_data = {
@@ -28,6 +30,78 @@ CSI_data = {
     ...
     63 : np.array([*CSI data sequence*])
 }
+```
+
+
+
+```python
+#for multi_load
+#dict(dict(np.array))
+link = {
+    1  :  {
+            "time" : np.array([*time sequence*]),
+            0 : np.array([*CSI data sequence*]), #subcarrier index - 1
+            1 : np.array([*CSI data sequence*]),
+            2 : np.array([*CSI data sequence*]),
+            ...
+            63 : np.array([*CSI data sequence*])
+        },
+
+    2  :  {
+            "time" : np.array([*time sequence*]),
+            0 : np.array([*CSI data sequence*]), #subcarrier index - 1
+            1 : np.array([*CSI data sequence*]),
+            2 : np.array([*CSI data sequence*]),
+            ...
+            63 : np.array([*CSI data sequence*])
+        },
+
+    3  :  {
+            "time" : np.array([*time sequence*]),
+            0 : np.array([*CSI data sequence*]), #subcarrier index - 1
+            1 : np.array([*CSI data sequence*]),
+            2 : np.array([*CSI data sequence*]),
+            ...
+            63 : np.array([*CSI data sequence*])
+        },
+
+    4  :  {
+            "time" : np.array([*time sequence*]),
+            0 : np.array([*CSI data sequence*]), #subcarrier index - 1
+            1 : np.array([*CSI data sequence*]),
+            2 : np.array([*CSI data sequence*]),
+            ...
+            63 : np.array([*CSI data sequence*])
+        }
+}
+```
+### **The idea of link index**
+
+In this setup the link index will be
+|device|index|
+|--|--|
+|RASP0 esp 0|1|
+|RASP0 esp 1|2|
+|RASP1 esp 0|3|
+|RASP1 esp 1|4|
+```
+                    RASP 0
+                   /    \
+                  /      \
+                esp 0    esp 1
+
+        esp 0                   AP
+         /                       \
+        /                         \
+    RASP 1                         power
+        \                         /
+         \                       /
+        esp 1                   AP
+
+                AP       AP
+                 \       /
+                  \     /
+                   power
 ```
 
 ### **analysis.py**
@@ -109,7 +183,7 @@ HOP = 3
 DROP = 100
 ```
 
-## **connection system**
+## **connection system (new version is in realtimeconnection)**
 --------------------
 To have better control over whole data collecting system, I use lan to connect the CSI capturing device. the system is being saparated into two programs, ```connection``` and ```ras_connection``` 
 
@@ -128,11 +202,19 @@ ras_connection is designed for rapberry pi,```rasp.py``` can help you get the ES
                     |                                 |
               [check reply]                           |
                     |                                 |
-                    |----------send filename-------->>|
+              [setfile name]                          |
+                    |                                 |
+                    |-----------send start---------->>|
                     |                                 |
                     |                     [start collecting process]
+                    |                                 |
+                    |<<-----send collected data-------|
+                    |                                 |
+            [save as csv file]                        |
                     |                                 |
                     |-----------send stop----------->>|
                     |                                 |
 
-Each file is saved in raspberry pi. you have to do some preset to make rapberry to collect multiple ESP32 data input. please see the source code before you using.
+To run the collection system, you should run the ```rasp.py``` inside the **ras_connection** first. Then make sure all you collecting device is up. After that you should run ```control.py``` to initiate the data collecting process.
+
+For more detail or small chaange in device set up. check the source code, you can change the parameter to meet up your needs.

@@ -23,17 +23,16 @@ COM_PORT = [
     '/dev/ttyUSB0',
     '/dev/ttyUSB1'
 ]
+
+
 serial_thread = []
 monitor = []
 for i in range(ESPNUM):
     monitor.append(mevent())
 
 hostName = gethostbyname( '0.0.0.0' )
-#print ("Test client sending packets to IP {0}, via port {1}\n".format(CONTROL_IP, PORT_NUMBER))
 LSocket = socket( AF_INET, SOCK_DGRAM )
 LSocket.bind( (hostName, LISTEN_PORT) )
-#LSocket.setblocking(False)
-
 mySocket = socket( AF_INET, SOCK_DGRAM )
 mySocket.connect((CONTROL_IP,PORT_NUMBER))
 while True:
