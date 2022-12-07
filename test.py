@@ -2,6 +2,6 @@ import icanfi
 import matplotlib.pyplot as plt
 
 
-link = icanfi.multi_load('./dataset/nopeople.csv')
+link = icanfi.multi_load('./dataset/tworasptest.csv')
 
-print(link[2].keys())
+print(link.keys())

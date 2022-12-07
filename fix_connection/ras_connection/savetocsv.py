@@ -25,6 +25,8 @@ def read(ser):
         print('error')
         return ' '
 
+
+
 def stack_full(ser):
     for i in range(1000):
         dataraw = read(ser)
