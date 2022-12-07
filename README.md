@@ -217,4 +217,4 @@ ras_connection is designed for rapberry pi,```rasp.py``` can help you get the ES
 
 To run the collection system, you should run the ```rasp.py``` inside the **ras_connection** first. Then make sure all you collecting device is up. After that you should run ```control.py``` to initiate the data collecting process.
 
-For more detail or small chaange in device set up. check the source code, you can change the parameter to meet up your needs.
+For more detail or small change in device set up. check the source code, you can change the parameter to meet up your needs.
