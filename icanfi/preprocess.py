@@ -71,7 +71,7 @@ def windowing(data,windowsize = WINDOWSIZE,hop = HOP,drop = DROP):
 
         
 
-def downsampling(data,Srate = DOWNSAMPLING_S,bias = BIAS,extand = False):
+def downsampling(data,Srate = DOWNSAMPLING_S,bias = BIAS,extand = True):
     track = {}
     second = 0
     index = 0
@@ -98,10 +98,10 @@ def downsampling(data,Srate = DOWNSAMPLING_S,bias = BIAS,extand = False):
         hold['time'].append(k)
 
     convert2np(hold)
-    if type(data01)!=dict:
-        data01.data =  hold
+    if type(data)!=dict:
+        data.data =  hold
     else:
-        data01 = hold
+        data = hold
 
 def remove_DC(data):
     for i in range(SUBCARRIER):
