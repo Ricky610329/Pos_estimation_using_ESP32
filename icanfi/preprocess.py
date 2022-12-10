@@ -1,5 +1,5 @@
 import numpy as np
-
+import collections
 from icanfi.parameter import BIAS, DOWNSAMPLING_S, SUBCARRIER,WINDOWSIZE,HOP,DROP,NO_USE_SUB
 
 
@@ -72,7 +72,7 @@ def windowing(data,windowsize = WINDOWSIZE,hop = HOP,drop = DROP):
         
 
 def downsampling(data,Srate = DOWNSAMPLING_S,bias = BIAS,extand = True):
-    track = {}
+    track = collections.OrderedDict()
     second = 0
     index = 0
     hold = {
@@ -92,11 +92,11 @@ def downsampling(data,Srate = DOWNSAMPLING_S,bias = BIAS,extand = True):
         
     for i in range(SUBCARRIER):
         hold[i] = []
-        for j in range(len(track.keys())):
-            hold[i].append(data[i][track［j*Srate］])
+        for j in track.values():
+            hold[i].append(data[i][j］])
     
-    for k in range(len(track.keys())):
-        hold['time'].append(k*Srate)
+    for k in track.keys():
+        hold['time'].append(k)
 
     convert2np(hold)
     if type(data)!=dict:
