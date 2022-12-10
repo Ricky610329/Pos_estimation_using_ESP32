@@ -92,8 +92,8 @@ def downsampling(data,Srate = DOWNSAMPLING_S,bias = BIAS,extand = True):
         
     for i in range(SUBCARRIER):
         hold[i] = []
-        for j in track.values():
-            hold[i].append(data[i][j])
+        for j in range(len(track.keys())):
+            hold[i].append(data[i][track［j］])
     
     for k in range(len(track.keys())):
         hold['time'].append(k*Srate)
