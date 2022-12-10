@@ -94,8 +94,9 @@ def downsampling(data,Srate = DOWNSAMPLING_S,bias = BIAS,extand = True):
         hold[i] = []
         for j in track.values():
             hold[i].append(data[i][j])
-    for k in track.keys():
-        hold['time'].append(k)
+    
+    for k in range(len(track.keys())):
+        hold['time'].append(k*Srate)
 
     convert2np(hold)
     if type(data)!=dict:
