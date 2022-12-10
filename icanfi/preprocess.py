@@ -42,13 +42,13 @@ dic{
 '''
 #this is for csv file
 def windowing(data,windowsize = WINDOWSIZE,hop = HOP,drop = DROP):
-    data
     start = 0
     last_w = 0
     window = []
+    hop_m=0
     for i in range(len(data['time'])):
         start = i
-        if data['time'][start] >= data['time'][last_w] + hop:
+        if data['time'][start] >= data['time'][last_w] + hop_m:
             index = start
             check = False
             last_w = start
@@ -65,6 +65,7 @@ def windowing(data,windowsize = WINDOWSIZE,hop = HOP,drop = DROP):
                 window.append(0)
             else:
                 window.append(temp)
+        hop_m=hop
     return window
 
             
