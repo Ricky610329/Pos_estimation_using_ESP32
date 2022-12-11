@@ -1,5 +1,5 @@
 import numpy as np
-
+import collections
 from icanfi.parameter import BIAS, DOWNSAMPLING_S, SUBCARRIER,WINDOWSIZE,HOP,DROP,NO_USE_SUB
 
 
@@ -42,13 +42,13 @@ dic{
 '''
 #this is for csv file
 def windowing(data,windowsize = WINDOWSIZE,hop = HOP,drop = DROP):
-    data
     start = 0
     last_w = 0
     window = []
+    hop_m=0
     for i in range(len(data['time'])):
         start = i
-        if data['time'][start] >= data['time'][last_w] + hop:
+        if data['time'][start] >= data['time'][last_w] + hop_m:
             index = start
             check = False
             last_w = start
@@ -65,6 +65,7 @@ def windowing(data,windowsize = WINDOWSIZE,hop = HOP,drop = DROP):
                 window.append(0)
             else:
                 window.append(temp)
+        hop_m=hop
     return window
 
             
@@ -72,7 +73,7 @@ def windowing(data,windowsize = WINDOWSIZE,hop = HOP,drop = DROP):
         
 
 def downsampling(data,Srate = DOWNSAMPLING_S,bias = BIAS,extand = True):
-    track = {}
+    track = collections.OrderedDict()
     second = 0
     index = 0
     hold = {
@@ -94,17 +95,15 @@ def downsampling(data,Srate = DOWNSAMPLING_S,bias = BIAS,extand = True):
         hold[i] = []
         for j in track.values():
             hold[i].append(data[i][j])
+    
     for k in track.keys():
         hold['time'].append(k)
 
     convert2np(hold)
-    if type(data)!=dict:
-        data.data =  hold
-    else:
-        data = hold
+
+    return hold
 
 def remove_DC(data):
     for i in range(SUBCARRIER):
         mean = np.mean(data[i])
         data[i] = data[i] - mean
-

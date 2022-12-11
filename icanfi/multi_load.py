@@ -1,3 +1,4 @@
+import copy
 import csv
 import numpy as np
 
@@ -51,7 +52,7 @@ def multi_load(filename,mod = 'a'):
                         value = opperation(real_img_csi[2*sub],real_img_csi[2*sub+1])
                         all_link[link_index][sub].append(value)
                 else:
-                    all_link[link_index] = dict(link_struct)
+                    all_link[link_index] = copy.deepcopy(link_struct)
         for k in all_link.keys():
             for m in all_link[k].keys():
                 all_link[k][m] = np.array(all_link[k][m])
