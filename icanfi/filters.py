@@ -14,10 +14,10 @@ def bandpass(data):
     data[0] = signal.sosfilt(Bandpass_filter,data[0])
 
 #will return a dic
-def data_fft(data):
+def data_fft(data,index = 0):
     hold = {}
     hold["frequency"] = fft.fftfreq(len(data['time']),DOWNSAMPLING_S)
-    hold[0] = fft.fft(data[0])
+    hold[index] = fft.fft(data[index])
 
     return hold
 

@@ -2,8 +2,8 @@
 #butterworth filter
 
 
-BUTTER_N = 7
-BUTTER_WN = 0.5 #critical frequency
+BUTTER_N = 3
+BUTTER_WN = 1 #critical frequency
 BUTTER_OUTPUT = 'sos'
 BUTTER_ANALOG = False
 BANDPASS_WN = [0.05,1]

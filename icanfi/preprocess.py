@@ -41,7 +41,7 @@ dic{
 
 '''
 #this is for csv file
-def windowing(data,windowsize = WINDOWSIZE,hop = HOP,drop = DROP):
+def windowing(data,windowsize = WINDOWSIZE,hop = HOP,drop = DROP,samplerate = DOWNSAMPLING_S):
     start = 0
     last_w = 0
     window = []
@@ -66,11 +66,9 @@ def windowing(data,windowsize = WINDOWSIZE,hop = HOP,drop = DROP):
             else:
                 window.append(temp)
         hop_m=hop
-    return window
+    return window[:int(windowsize*DOWNSAMPLING_S)]
 
-            
-
-        
+    
 
 def downsampling(data,Srate = DOWNSAMPLING_S,bias = BIAS,extand = True):
     track = collections.OrderedDict()

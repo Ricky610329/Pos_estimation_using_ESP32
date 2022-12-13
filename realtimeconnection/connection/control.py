@@ -14,12 +14,12 @@ import threading
 
 PORT_NUMBER = 5000
 RASP_port = 5001
-Ras_num = 2 #the number of raspberry has to be specify
+Ras_num = 1 #the number of raspberry has to be specify
 SIZE = 1024
 hostName = gethostbyname( '0.0.0.0' )
 #the order of the ip address is the order of the raspberry pi connection
 RASP_IP = [
-    '192.168.0.103',
+    '192.168.0.109',
     '192.168.0.112',
     '127.0.0.1',
     '127.0.0.1'
